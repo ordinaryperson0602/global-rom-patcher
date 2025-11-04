@@ -1,0 +1,216 @@
+
+12:01:06: INFO: FH_LOADER WAS CALLED EXACTLY LIKE THIS
+************************************************
+F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\fh_loader.exe --port=\\.\COM3 --setactivepartition=1 --zlpawarehost=1 --sendxml=rawprogram0.xml --sendxml=rawprogram1.xml --sendxml=rawprogram2.xml --sendxml=rawprogram3.xml --sendxml=rawprogram4.xml --sendxml=rawprogram5.xml --sendxml=patch0.xml --sendxml=patch1.xml --sendxml=patch2.xml --sendxml=patch3.xml --sendxml=patch4.xml --sendxml=patch5.xml --search_path=F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image --noprompt --showpercentagecomplete --memoryname=UFS --reset 
+************************************************
+
+12:01:06: DEBUG: Binary build date: Jun 25 2019 @ 03:16:10
+
+12:01:06: DEBUG: Build Version: 19.06.25.03.16.10
+
+12:01:06: INFO: Current working dir (cwd): F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\
+12:01:06: INFO: Showing network mappings to allow debugging
+12:01:06: DEBUG: New connections will be remembered.
+
+12:01:06: DEBUG: 
+
+12:01:06: DEBUG: 
+
+12:01:06: DEBUG: Status       Local     Remote                    Network
+
+12:01:06: DEBUG: 
+
+12:01:06: DEBUG: -------------------------------------------------------------------------------
+
+12:01:06: DEBUG: OK           Y:        \\10.103.59.28\PRC Tablet Microsoft Windows Network
+
+12:01:06: DEBUG: OK           Z:        \\10.103.59.28\t&sd svc   Microsoft Windows Network
+
+12:01:06: DEBUG: The command completed successfully.
+
+12:01:06: DEBUG: 
+
+12:01:06: DEBUG: User set ZLPAWAREHOST to 1
+
+12:01:06: INFO: 
+
+
+
+12:01:06: INFO: Trying to store 'rawprogram0.xml' in string table
+12:01:06: DEBUG: ==================================================================================
+12:01:06: DEBUG: ==================================================================================
+12:01:06: INFO: Looking for file 'rawprogram0.xml'
+12:01:06: DEBUG: 1. Calling stat('F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\rawprogram0.xml')
+12:01:06: DEBUG: 2. Calling fopen('F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\rawprogram0.xml') with AccessMode='rb'
+12:01:06: DEBUG: Trying get filesize, calling fseek()
+12:01:06: DEBUG: Found 'F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\rawprogram0.xml' (9071 bytes)
+12:01:06: DEBUG: 2. Calling fopen('F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\rawprogram0.xml') with AccessMode='r'
+12:01:06: DEBUG: Trying get filesize, calling fseek()
+12:01:06: INFO: 
+
+
+
+12:01:06: INFO: Trying to store 'rawprogram1.xml' in string table
+12:01:06: DEBUG: ==================================================================================
+12:01:06: DEBUG: ==================================================================================
+12:01:06: INFO: Looking for file 'rawprogram1.xml'
+12:01:06: DEBUG: 1. Calling stat('F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\rawprogram1.xml')
+12:01:06: DEBUG: 2. Calling fopen('F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\rawprogram1.xml') with AccessMode='rb'
+12:01:06: DEBUG: Trying get filesize, calling fseek()
+12:01:06: DEBUG: Found 'F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\rawprogram1.xml' (1592 bytes)
+12:01:06: DEBUG: 2. Calling fopen('F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\rawprogram1.xml') with AccessMode='r'
+12:01:06: DEBUG: Trying get filesize, calling fseek()
+12:01:06: INFO: 
+
+
+
+12:01:06: INFO: Trying to store 'rawprogram2.xml' in string table
+12:01:06: DEBUG: ==================================================================================
+12:01:06: DEBUG: ==================================================================================
+12:01:06: INFO: Looking for file 'rawprogram2.xml'
+12:01:06: DEBUG: 1. Calling stat('F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\rawprogram2.xml')
+12:01:06: DEBUG: 2. Calling fopen('F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\rawprogram2.xml') with AccessMode='rb'
+12:01:06: DEBUG: Trying get filesize, calling fseek()
+12:01:06: DEBUG: Found 'F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\rawprogram2.xml' (1592 bytes)
+12:01:06: DEBUG: 2. Calling fopen('F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\rawprogram2.xml') with AccessMode='r'
+12:01:06: DEBUG: Trying get filesize, calling fseek()
+12:01:06: INFO: 
+
+
+
+12:01:06: INFO: Trying to store 'rawprogram3.xml' in string table
+12:01:06: DEBUG: ==================================================================================
+12:01:06: DEBUG: ==================================================================================
+12:01:06: INFO: Looking for file 'rawprogram3.xml'
+12:01:06: DEBUG: 1. Calling stat('F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\rawprogram3.xml')
+12:01:06: DEBUG: 2. Calling fopen('F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\rawprogram3.xml') with AccessMode='rb'
+12:01:06: DEBUG: Trying get filesize, calling fseek()
+12:01:06: DEBUG: Found 'F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\rawprogram3.xml' (1841 bytes)
+12:01:06: DEBUG: 2. Calling fopen('F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\rawprogram3.xml') with AccessMode='r'
+12:01:06: DEBUG: Trying get filesize, calling fseek()
+12:01:06: INFO: 
+
+
+
+12:01:06: INFO: Trying to store 'rawprogram4.xml' in string table
+12:01:06: DEBUG: ==================================================================================
+12:01:06: DEBUG: ==================================================================================
+12:01:06: INFO: Looking for file 'rawprogram4.xml'
+12:01:06: DEBUG: 1. Calling stat('F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\rawprogram4.xml')
+12:01:06: DEBUG: 2. Calling fopen('F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\rawprogram4.xml') with AccessMode='rb'
+12:01:06: DEBUG: Trying get filesize, calling fseek()
+12:01:06: DEBUG: Found 'F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\rawprogram4.xml' (18124 bytes)
+12:01:06: DEBUG: 2. Calling fopen('F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\rawprogram4.xml') with AccessMode='r'
+12:01:06: DEBUG: Trying get filesize, calling fseek()
+12:01:06: INFO: 
+
+
+
+12:01:06: INFO: Trying to store 'rawprogram5.xml' in string table
+12:01:06: DEBUG: ==================================================================================
+12:01:06: DEBUG: ==================================================================================
+12:01:06: INFO: Looking for file 'rawprogram5.xml'
+12:01:06: DEBUG: 1. Calling stat('F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\rawprogram5.xml')
+12:01:06: DEBUG: 2. Calling fopen('F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\rawprogram5.xml') with AccessMode='rb'
+12:01:06: DEBUG: Trying get filesize, calling fseek()
+12:01:06: DEBUG: Found 'F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\rawprogram5.xml' (2410 bytes)
+12:01:06: DEBUG: 2. Calling fopen('F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\rawprogram5.xml') with AccessMode='r'
+12:01:06: DEBUG: Trying get filesize, calling fseek()
+12:01:06: INFO: 
+
+
+
+12:01:06: INFO: Trying to store 'patch0.xml' in string table
+12:01:06: DEBUG: ==================================================================================
+12:01:06: DEBUG: ==================================================================================
+12:01:06: INFO: Looking for file 'patch0.xml'
+12:01:06: DEBUG: 1. Calling stat('F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\patch0.xml')
+12:01:06: DEBUG: 2. Calling fopen('F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\patch0.xml') with AccessMode='rb'
+12:01:06: DEBUG: Trying get filesize, calling fseek()
+12:01:06: DEBUG: Found 'F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\patch0.xml' (6263 bytes)
+12:01:06: DEBUG: 2. Calling fopen('F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\patch0.xml') with AccessMode='r'
+12:01:06: DEBUG: Trying get filesize, calling fseek()
+12:01:06: INFO: 
+
+
+
+12:01:06: INFO: Trying to store 'patch1.xml' in string table
+12:01:06: DEBUG: ==================================================================================
+12:01:06: DEBUG: ==================================================================================
+12:01:06: INFO: Looking for file 'patch1.xml'
+12:01:06: DEBUG: 1. Calling stat('F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\patch1.xml')
+12:01:06: DEBUG: 2. Calling fopen('F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\patch1.xml') with AccessMode='rb'
+12:01:06: DEBUG: Trying get filesize, calling fseek()
+12:01:06: DEBUG: Found 'F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\patch1.xml' (6263 bytes)
+12:01:06: DEBUG: 2. Calling fopen('F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\patch1.xml') with AccessMode='r'
+12:01:06: DEBUG: Trying get filesize, calling fseek()
+12:01:06: INFO: 
+
+
+
+12:01:06: INFO: Trying to store 'patch2.xml' in string table
+12:01:06: DEBUG: ==================================================================================
+12:01:06: DEBUG: ==================================================================================
+12:01:06: INFO: Looking for file 'patch2.xml'
+12:01:06: DEBUG: 1. Calling stat('F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\patch2.xml')
+12:01:06: DEBUG: 2. Calling fopen('F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\patch2.xml') with AccessMode='rb'
+12:01:06: DEBUG: Trying get filesize, calling fseek()
+12:01:06: DEBUG: Found 'F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\patch2.xml' (6263 bytes)
+12:01:06: DEBUG: 2. Calling fopen('F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\patch2.xml') with AccessMode='r'
+12:01:06: DEBUG: Trying get filesize, calling fseek()
+12:01:06: INFO: 
+
+
+
+12:01:06: INFO: Trying to store 'patch3.xml' in string table
+12:01:06: DEBUG: ==================================================================================
+12:01:06: DEBUG: ==================================================================================
+12:01:06: INFO: Looking for file 'patch3.xml'
+12:01:06: DEBUG: 1. Calling stat('F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\patch3.xml')
+12:01:06: DEBUG: 2. Calling fopen('F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\patch3.xml') with AccessMode='rb'
+12:01:06: DEBUG: Trying get filesize, calling fseek()
+12:01:06: DEBUG: Found 'F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\patch3.xml' (6263 bytes)
+12:01:06: DEBUG: 2. Calling fopen('F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\patch3.xml') with AccessMode='r'
+12:01:06: DEBUG: Trying get filesize, calling fseek()
+12:01:06: INFO: 
+
+
+
+12:01:06: INFO: Trying to store 'patch4.xml' in string table
+12:01:06: DEBUG: ==================================================================================
+12:01:06: DEBUG: ==================================================================================
+12:01:06: INFO: Looking for file 'patch4.xml'
+12:01:06: DEBUG: 1. Calling stat('F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\patch4.xml')
+12:01:06: DEBUG: 2. Calling fopen('F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\patch4.xml') with AccessMode='rb'
+12:01:06: DEBUG: Trying get filesize, calling fseek()
+12:01:06: DEBUG: Found 'F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\patch4.xml' (6271 bytes)
+12:01:06: DEBUG: 2. Calling fopen('F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\patch4.xml') with AccessMode='r'
+12:01:06: DEBUG: Trying get filesize, calling fseek()
+12:01:06: INFO: 
+
+
+
+12:01:06: INFO: Trying to store 'patch5.xml' in string table
+12:01:06: DEBUG: ==================================================================================
+12:01:06: DEBUG: ==================================================================================
+12:01:06: INFO: Looking for file 'patch5.xml'
+12:01:06: DEBUG: 1. Calling stat('F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\patch5.xml')
+12:01:06: DEBUG: 2. Calling fopen('F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\patch5.xml') with AccessMode='rb'
+12:01:06: DEBUG: Trying get filesize, calling fseek()
+12:01:06: DEBUG: Found 'F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\patch5.xml' (6263 bytes)
+12:01:06: DEBUG: 2. Calling fopen('F:\NPI\0_TB128_Oak_M10_Plus_3rd_Qualcomm_WT\0_Test Image\User\TB128XU_USR_S000279_Q00126_ROW\image\patch5.xml') with AccessMode='r'
+12:01:06: DEBUG: Trying get filesize, calling fseek()
+12:01:06: INFO: User wants to talk to port '\\.\COM3'
+12:01:16: DEBUG: port_fd=0x100
+
+
+
+	 _____                    
+	|  ___|                   
+	| |__ _ __ _ __ ___  _ __ 
+	|  __| '__| '__/ _ \| '__|
+	| |__| |  | | | (_) | |   
+	\____/_|  |_|  \___/|_|  
+
+
+12:01:16: {ERROR: OpenPort:5971 It took      10.01500000 seconds to open port. Which is longer than 3.000. This indicates your target is not stable

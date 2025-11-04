@@ -1,0 +1,10 @@
+:Base QPSTCONFIG.HLP>main
+:Title QPST Configuration Help
+1 QPST Configuration=Contents
+1 Ports Tab=Ports_Tab@QPSTCONFIG.HLP>main
+1 Port Properties Dialog Box=Port_Properties_Dialog_Box@QPSTCONFIG.HLP>main
+1 Active Phones Tab=Active_Phones_Tab@QPSTCONFIG.HLP>main
+1 Phone Properties Dialog Box=Phone_Properties_Dialog_Box@QPSTCONFIG.HLP>main
+1 Active Clients Tab=Active_Clients_Tab>main
+1 Starting Other QPST Applications=Starting_Other_QPST_Applications>main
+1 Server Menu=Server_Menu>main

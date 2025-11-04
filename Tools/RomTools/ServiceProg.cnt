@@ -1,0 +1,21 @@
+:Base SERVICEPROG.HLP
+:Title QPST Service Programming Help
+1 QPST Service Programming=Contents
+1 Service Programming tabs
+2 Settings Tab=Settings_Tab
+2 CDMA Tab=CDMA_Tab
+2 CDMA-2 Tab=CDMA_2_Tab
+2 AMPS Tab=AMPS_Tab
+2 System Tab=System_Tab
+2 Roam Tab=Roam_Tab
+2 Display Tab=Display_Tab
+2 Sounds Tab=Sounds_Tab
+2 Features/Alerts Tab=Features_Alerts_Tab
+2 Phone Book Tab=Phone_Book_Tab
+2 Security Tab=Security_Tab
+2 Data/Web Tab=Data_Web_Tab
+2 Broadcast SMS Tab=Broadcast_SMS_Tab
+2 Multimedia Audio Tab=Multimedia_Audio_Tab
+2 gpsOne Tab=gpsOne_Tab
+2 Mobile IP Tab=Mobile_IP_Tab
+2 Nonaccess Stratum Tab=Nonaccess_Stratum_Tab
