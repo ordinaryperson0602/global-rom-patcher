@@ -1,9 +1,15 @@
 """경로 설정"""
 import os
+import sys
 from pathlib import Path
 
-# 기본 경로
-CURRENT_DIR = Path(__file__).parent.parent.resolve()
+# 기본 경로 (EXE와 스크립트 모두 지원)
+if getattr(sys, 'frozen', False):
+    # PyInstaller로 빌드된 EXE 실행 시
+    CURRENT_DIR = Path(sys.executable).parent.resolve()
+else:
+    # Python 스크립트 실행 시
+    CURRENT_DIR = Path(__file__).parent.parent.resolve()
 TOOL_DIR = CURRENT_DIR / "Tools"
 
 # 문자열 경로
