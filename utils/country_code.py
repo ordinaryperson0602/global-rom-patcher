@@ -359,7 +359,10 @@ def step3_create_patch(direction: str = "CN_TO_KR") -> Optional[Tuple[Dict[str, 
             if not verify_patch_file(patch_file, target_code, f"STEP 3 - {partition}"):
                 all_verified = False
         elif status == 'skip':
-            print(f"  {Colors.OKCYAN}○ {patch_file.name} 검증 건너뜀 (이미 {target_code.decode('utf-8', errors='ignore')} 상태){Colors.ENDC}")
+            print(
+                f"  {Colors.OKCYAN}○ {patch_file.name} 검증 건너뜀 "
+                f"(이미 {target_code.decode('utf-8', errors='ignore')} 상태){Colors.ENDC}"
+            )
         elif status == 'no_code':
             print(f"  {Colors.WARNING}○ {patch_file.name} 검증 건너뜀 (국가코드 없음){Colors.ENDC}")
     

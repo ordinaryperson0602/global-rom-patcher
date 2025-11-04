@@ -15,7 +15,7 @@ from typing import Dict, List, Optional, Tuple
 # 로컬 모듈
 from config.colors import Colors
 from config.paths import (
-    CURRENT_DIR, TOOL_DIR, ROOTING_TOOL_DIR, KNOWN_SIGNING_KEYS, TEMP_WORK_DIR
+    CURRENT_DIR, TOOL_DIR, ROOTING_TOOL_DIR, KNOWN_SIGNING_KEYS, TEMP_WORK_DIR, PYTHON_EXE
 )
 from config.constants import GKI_REPO_URL, GKI_TAG, KSU_MANAGER_REPO, KSU_MANAGER_TAG, UIConstants
 from config.messages import ErrorMessages, TitleMessages
@@ -106,13 +106,17 @@ def sign_image_with_footer(target_image: Path, info_source_image: Path,
     required_keys = ['partition_size', 'name', 'rollback_index', 'salt', 'algorithm']
     if not img_info or not all(key in img_info for key in required_keys):
         global_end_progress()
-        print(f"\n  {Colors.FAIL}[오류] '{info_source_image.name}' 분석 실패. 서명에 필요한 정보가 부족합니다.{Colors.ENDC}", file=sys.stderr)
+        print(
+            f"\n  {Colors.FAIL}[오류] '{info_source_image.name}' 분석 실패. "
+            f"서명에 필요한 정보가 부족합니다.{Colors.ENDC}",
+            file=sys.stderr
+        )
         return False
     
     rollback_index_to_use = override_rollback_index if override_rollback_index else img_info['rollback_index']
     
     cmd_add_footer = [
-        sys.executable, str(TOOL_DIR / "avbtool.py"), "add_hash_footer",
+        PYTHON_EXE, str(TOOL_DIR / "avbtool.py"), "add_hash_footer",
         "--image", str(target_image),
         "--partition_size", img_info['partition_size'],
         "--partition_name", img_info['name'],
@@ -275,7 +279,7 @@ def apply_rollback_indices(image_dir: Path, rb_indices: Dict[str, str],
                 new_rb_val = rb_indices['vbmeta_system']
                 if key_file:
                     cmd_make_vbmeta_sys = [
-                        sys.executable, str(TOOL_DIR / "avbtool.py"), "make_vbmeta_image",
+                        PYTHON_EXE, str(TOOL_DIR / "avbtool.py"), "make_vbmeta_image",
                         "--output", str(vbmeta_sys_path), "--key", str(key_file),
                         "--algorithm", vm_sys_info['algorithm'], "--rollback_index", new_rb_val,
                         "--padding_size", "4096",
@@ -380,9 +384,13 @@ def _backup_images(image_dir: Path, perform_root_patch: bool, rb_indices: Option
         missing_list = '\n'.join([f"  - {img}" for img in missing_images])
         print(f"\n{Colors.FAIL}[!] 오류: 해당 이미지 파일이 없습니다:{Colors.ENDC}", file=sys.stderr)
         print(missing_list, file=sys.stderr)
-        show_popup("STEP 3 오류 - NG",
-                  f"해당 이미지 파일이 없습니다:\n\n{chr(10).join(missing_images)}\n\n'image' 폴더에 4개의 이미지가 모두 있어야 합니다.\n원본 롬파일인지 확인하십시오.",
-                  exit_on_close=False, icon=UIConstants.ICON_ERROR)
+        show_popup(
+            "STEP 3 오류 - NG",
+            f"해당 이미지 파일이 없습니다:\n\n{chr(10).join(missing_images)}\n\n"
+            f"'image' 폴더에 4개의 이미지가 모두 있어야 합니다.\n원본 롬파일인지 확인하십시오.",
+            exit_on_close=False,
+            icon=UIConstants.ICON_ERROR
+        )
         print(f"\n{Colors.OKCYAN}메인 메뉴로 돌아갑니다...{Colors.ENDC}")
         input("\nEnter 키를 누르면 메인 메뉴로 돌아갑니다...")
         return False
@@ -459,7 +467,7 @@ def _patch_vendor_boot_and_vbmeta(image_dir: Path, current_step: int, total_step
     if not key_file_vm:
         raise RuntimeError("vbmeta 서명 키를 찾지 못했습니다.")
     cmd_make_vbmeta = [
-        sys.executable, str(TOOL_DIR / "avbtool.py"), "make_vbmeta_image",
+        PYTHON_EXE, str(TOOL_DIR / "avbtool.py"), "make_vbmeta_image",
         "--output", str(vm_path), "--key", str(key_file_vm), "--algorithm", vm_info['algorithm'],
         "--padding_size", "8192",
         "--include_descriptors_from_image", str(vm_bak_path),
@@ -627,7 +635,7 @@ def _patch_vbmeta_system_china(image_dir: Path, rb_indices: Optional[Dict[str, s
             raise Exception("vbmeta_system 서명 키를 찾을 수 없습니다.")
         
         cmd_make_vbmeta_sys = [
-            sys.executable, str(TOOL_DIR / "avbtool.py"), "make_vbmeta_image",
+            PYTHON_EXE, str(TOOL_DIR / "avbtool.py"), "make_vbmeta_image",
             "--output", str(vs_path),
             "--key", str(key_file),
             "--algorithm", vm_sys_info['algorithm'],
@@ -820,7 +828,10 @@ def _check_arb_custom(device_indices: Dict[str, str],
             print(f"{Colors.FAIL}{'=' * 60}{Colors.ENDC}")
             
             while True:
-                choice = input(f"\n{Colors.WARNING}강제로 롤백 인덱스를 패치하여 플래싱을 진행하시겠습니까? (y/n): {Colors.ENDC}").strip().lower()
+                choice = input(
+                    f"\n{Colors.WARNING}강제로 롤백 인덱스를 패치하여 "
+                    f"플래싱을 진행하시겠습니까? (y/n): {Colors.ENDC}"
+                ).strip().lower()
                 if choice == 'y':
                     indices_to_patch = {}
                     if is_boot_rollback:
@@ -991,7 +1002,10 @@ def _check_arb_and_get_patch_indices(device_indices: Dict[str, str],
     print(f"{Colors.FAIL}{'=' * 60}{Colors.ENDC}")
     
     while True:
-        choice = input(f"\n{Colors.WARNING}강제로 롤백 인덱스를 패치하여 글로벌롬 플래싱을 진행하시겠습니까? (y/n): {Colors.ENDC}").strip().lower()
+        choice = input(
+            f"\n{Colors.WARNING}강제로 롤백 인덱스를 패치하여 "
+            f"글로벌롬 플래싱을 진행하시겠습니까? (y/n): {Colors.ENDC}"
+        ).strip().lower()
         if choice == 'y':
             indices_to_patch = {}
             if is_boot_rollback:

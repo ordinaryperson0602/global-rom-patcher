@@ -587,8 +587,12 @@ def reboot_device_from_edl() -> bool:
 
 
 # Helper Functions (리팩토링)
-def _check_vendor_boot_and_vbmeta(slot_suffix: str, target_model_number: str, 
-                                   step1_current_step: int, step1_total_steps: int) -> Tuple[Dict[str, str], Dict[str, str], int]:
+def _check_vendor_boot_and_vbmeta(
+    slot_suffix: str,
+    target_model_number: str,
+    step1_current_step: int,
+    step1_total_steps: int
+) -> Tuple[Dict[str, str], Dict[str, str], int]:
     """Task 5-6: vendor_boot과 vbmeta 확인"""
     device_info = {
         "region_code": "N/A", "model": "N/A", "country_code": "N/A",

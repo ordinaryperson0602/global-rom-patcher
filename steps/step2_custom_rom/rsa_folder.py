@@ -8,15 +8,10 @@ from typing import Tuple, Optional
 from config.colors import Colors
 from config.constants import UIConstants
 from config.messages import TitleMessages
+from config.paths import RSA_BASE_DIR, RSA_DOWNLOAD_DIR, RSA_ROMFILES_DIR
 from core.logger import log_error
 from utils.ui import show_popup
 from utils.file_operations import remove_readonly_and_delete
-
-
-# RSA 폴더 경로
-RSA_BASE_DIR = r"C:\Programdata\RSA"
-RSA_DOWNLOAD_DIR = r"C:\Programdata\RSA\Download"
-RSA_ROMFILES_DIR = r"C:\Programdata\RSA\Download\Romfiles"
 
 
 def check_and_prepare_rsa_folder() -> Tuple[bool, str]:
@@ -41,7 +36,7 @@ def check_and_prepare_rsa_folder() -> Tuple[bool, str]:
         show_popup(
             TitleMessages.ERROR,
             f"RSA 프로그램이 설치되지 않았습니다.\n\n"
-            f"C:\\Programdata\\RSA 폴더가 없습니다.\n\n"
+            f"{RSA_BASE_DIR} 폴더가 없습니다.\n\n"
             f"RSA 다운로더를 먼저 설치한 후\n"
             f"다시 시도하세요.",
             exit_on_close=False,
@@ -101,7 +96,7 @@ def input_rsa_folder_name(device_model: str, rom_type: str) -> Optional[str]:
     print(f"{Colors.BOLD}{'='*60}{Colors.ENDC}")
     
     # 1단계: RSA RomFiles 폴더에서 .zip.tmp 파일 자동 검색
-    rsa_romfiles_path = r"C:\ProgramData\RSA\Download\RomFiles"
+    rsa_romfiles_path = str(RSA_ROMFILES_DIR)
     auto_detected_name = None
     
     print(f"\n{Colors.BOLD}[1/2] 자동 감지 시도{Colors.ENDC}")

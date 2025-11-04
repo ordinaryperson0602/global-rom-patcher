@@ -58,6 +58,16 @@ __all__ = [
 
 
 # ============================================================================
+# Helper Functions
+# ============================================================================
+
+def _update_task_status(task_idx: int, status: str) -> None:
+    """진행률 업데이트 헬퍼 함수"""
+    update_standalone_task(task_idx, status)
+    print_standalone_progress()
+
+
+# ============================================================================
 # Helper Functions (리팩토링)
 # ============================================================================
 
@@ -122,7 +132,10 @@ def _validate_rom_structure_with_error(rom_path: str, rom_type: str) -> bool:
 # Main Function
 # ============================================================================
 
-def run_step_2_custom(target_model: str, step1_output_dir: Optional[str] = None) -> Tuple[Optional[str], Optional[str], Optional[Dict], Optional[Dict[str, str]]]:
+def run_step_2_custom(
+    target_model: str,
+    step1_output_dir: Optional[str] = None
+) -> Tuple[Optional[str], Optional[str], Optional[Dict], Optional[Dict[str, str]]]:
     """
     STEP 2-Custom 메인 실행 함수
     
@@ -158,104 +171,83 @@ def run_step_2_custom(target_model: str, step1_output_dir: Optional[str] = None)
     
     try:
         # 1. 롬파일 선택 (취소 시 재선택 가능)
-        update_standalone_task(0, 'in_progress')
-        print_standalone_progress()
+        _update_task_status(0, 'in_progress')
         
         selected_path = _select_rom_with_retry()
         if not selected_path:
             end_standalone_progress()
             return None, None, None, None
         
-        update_standalone_task(0, 'done')
-        print_standalone_progress()
+        _update_task_status(0, 'done')
         
         # 2. 실제 image 폴더가 있는 경로 찾기 (중첩 구조 처리)
-        update_standalone_task(1, 'in_progress')
-        print_standalone_progress()
+        _update_task_status(1, 'in_progress')
         
         rom_path, is_nested = _find_and_verify_rom_structure(selected_path)
         if not rom_path:
-            update_standalone_task(1, 'error')
-            print_standalone_progress()
+            _update_task_status(1, 'error')
             end_standalone_progress()
             return None, None, None, None
         
-        update_standalone_task(1, 'done')
-        print_standalone_progress()
+        _update_task_status(1, 'done')
         
         # 3. 롬파일 이름 확인 (1차 검증: 폴더명으로 모델 확인)
-        update_standalone_task(2, 'in_progress')
-        print_standalone_progress()
+        _update_task_status(2, 'in_progress')
         
         if not verify_model_compatibility(target_model, rom_path):
-            update_standalone_task(2, 'error')  # 롬파일 이름 확인 실패
-            # 나머지는 실행 안 됨 (pending 유지)
-            print_standalone_progress()
+            _update_task_status(2, 'error')
             end_standalone_progress()
             return None, None, None, None
         
-        update_standalone_task(2, 'done')
-        print_standalone_progress()
+        _update_task_status(2, 'done')
         
         # 4-5. vbmeta Prop 확인 + vendor_boot Hex 확인 (롬 타입 감지 + 2차 검증)
-        update_standalone_task(3, 'in_progress')
-        print_standalone_progress()
+        _update_task_status(3, 'in_progress')
         
         rom_type, rom_info = _detect_rom_type_with_error_handling(rom_path, target_model)
         if not rom_type:
-            update_standalone_task(3, 'error')
-            print_standalone_progress()
+            _update_task_status(3, 'error')
             end_standalone_progress()
             return None, None, None, None
         
         update_standalone_task(3, 'done')
-        update_standalone_task(4, 'done')
-        print_standalone_progress()
+        _update_task_status(4, 'done')
         
         # 구조 검증 (UI 표시 없이 백그라운드 실행)
         if not _validate_rom_structure_with_error(rom_path, rom_type):
-            update_standalone_task(5, 'error')
-            update_standalone_task(6, 'error')
-            update_standalone_task(7, 'error')
-            update_standalone_task(8, 'error')
+            for i in range(5, 9):
+                update_standalone_task(i, 'error')
             print_standalone_progress()
             end_standalone_progress()
             return None, None, None, None
         
         # 5-6. vbmeta_system 롤백 확인 + boot 롤백 확인 (롤백 인덱스 추출)
-        update_standalone_task(5, 'in_progress')
-        print_standalone_progress()
+        _update_task_status(5, 'in_progress')
         
         rom_indices = extract_rollback_indices(rom_path)
         
         update_standalone_task(5, 'done')  # vbmeta_system 롤백 확인
-        update_standalone_task(6, 'done')  # boot 롤백 확인
-        print_standalone_progress()
+        _update_task_status(6, 'done')  # boot 롤백 확인
         
         # 7. 검증 정보 저장
-        update_standalone_task(7, 'in_progress')
-        print_standalone_progress()
+        _update_task_status(7, 'in_progress')
         
         save_custom_rom_info_to_file(rom_path, rom_type, target_model, rom_indices, step1_output_dir)
         
-        update_standalone_task(7, 'done')
-        print_standalone_progress()
+        _update_task_status(7, 'done')
         
         # 8. 패치용 폴더 생성 (원본은 유지, 중첩 구조는 정상화)
-        update_standalone_task(8, 'in_progress')
-        print_standalone_progress()
+        _update_task_status(8, 'in_progress')
         
         patch_path = create_patch_folder(rom_path, selected_path, is_nested)
         if not patch_path:
-            update_standalone_task(8, 'error')
-            print_standalone_progress()
+            _update_task_status(8, 'error')
             print(f"\n{Colors.FAIL}[오류] 패치용 폴더 생성 실패. 작업을 중단합니다.{Colors.ENDC}")
             input(f"\n{Colors.WARNING}Enter 키를 눌러 계속...{Colors.ENDC}")
             end_standalone_progress()
             return None, None, None, None
         
-        update_standalone_task(8, 'done')
-        print_standalone_progress()
+        _update_task_status(8, 'done')
         
         # 완료
         end_standalone_progress()

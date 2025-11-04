@@ -4,7 +4,7 @@ import shutil
 import stat
 import sys
 from pathlib import Path
-from typing import Callable, TYPE_CHECKING
+from typing import Any, Callable, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from core.context import CopyProgressTracker
@@ -71,7 +71,7 @@ def copy_with_progress(src: str, dst: str, tracker: 'CopyProgressTracker') -> No
 
 def remove_readonly_and_delete(path: Path) -> None:
     """읽기 전용 파일을 삭제 가능하게 만들고 삭제"""
-    def remove_readonly(func: Callable, file_path: str, excinfo) -> None:
+    def remove_readonly(func: Callable, file_path: str, excinfo: Any) -> None:
         """읽기 전용 속성 제거 후 재시도"""
         os.chmod(file_path, stat.S_IWRITE)
         func(file_path)

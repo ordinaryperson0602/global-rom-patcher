@@ -115,7 +115,10 @@ def get_device_model_info() -> Tuple[Optional[str], Optional[str], Optional[str]
     
     # 사용자 확인
     while True:
-        answer = input(f"{Colors.WARNING}\n[확인] {InfoMessages.DEVICE_MODEL_CONFIRM.format(model_name=model_name)} (y/n): {Colors.ENDC}").strip().lower()
+        answer = input(
+            f"{Colors.WARNING}\n[확인] "
+            f"{InfoMessages.DEVICE_MODEL_CONFIRM.format(model_name=model_name)} (y/n): {Colors.ENDC}"
+        ).strip().lower()
         if answer == 'y':
             _device_context.set_loader(loader_to_use)
             print(f"[정보] 로더 파일을 '{os.path.basename(loader_to_use)}'(으)로 설정합니다.")

@@ -49,7 +49,10 @@ def print_hierarchical_progress() -> None:
             4: "패치 검증"
         }
         step_title = step_titles.get(current_main_step, "진행 중")
-        print(f"\n{Colors.OKGREEN}[{step_name}: {step_title}]{Colors.ENDC} {bar} {Colors.OKBLUE}{sub_percent:.0f}%{Colors.ENDC}\n")
+        print(
+            f"\n{Colors.OKGREEN}[{step_name}: {step_title}]{Colors.ENDC} "
+            f"{bar} {Colors.OKBLUE}{sub_percent:.0f}%{Colors.ENDC}\n"
+        )
         
         if sub_tasks:
             for task_name, status in sub_tasks:

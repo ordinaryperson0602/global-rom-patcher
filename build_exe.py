@@ -274,7 +274,8 @@ def show_result():
         print()
         print("2. 배포용 압축 파일 생성:")
         print("   cd ..\\.. (프로젝트 루트로)")
-        print(f"   Compress-Archive -Path 'dist\\{DIST_FOLDER_NAME}\\*' -DestinationPath '{DIST_FOLDER_NAME}_{VERSION}.zip' -Force")
+        print(f"   Compress-Archive -Path 'dist\\{DIST_FOLDER_NAME}\\*' "
+              f"-DestinationPath '{DIST_FOLDER_NAME}_{VERSION}.zip' -Force")
         print()
         print("3. GitHub Release 생성:")
         print("   - https://github.com/ordinaryperson0602/global-rom-patcher/releases")

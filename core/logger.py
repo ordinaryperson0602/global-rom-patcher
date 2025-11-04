@@ -39,7 +39,12 @@ def strip_ansi_processor(logger: Any, method_name: str, event_dict: Dict[str, An
 class PrintCapture:
     """print()를 structlog으로 자동 라우팅"""
     
-    def __init__(self, logger_instance: logging.Logger, original_stdout: Any, file_handler: logging.FileHandler) -> None:
+    def __init__(
+        self,
+        logger_instance: logging.Logger,
+        original_stdout: Any,
+        file_handler: logging.FileHandler
+    ) -> None:
         """
         Print 캡처 초기화
         
@@ -305,7 +310,7 @@ def clear_context() -> None:
 # 기존 함수 호환성 유지
 # ============================================================================
 
-def log_command_output(command, stdout, stderr, success) -> None:
+def log_command_output(command: str, stdout: str, stderr: str, success: bool) -> None:
     """
     명령어 실행 결과 로깅 (구조화)
     

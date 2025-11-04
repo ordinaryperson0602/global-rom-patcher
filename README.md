@@ -539,7 +539,7 @@ restore_console_mode()    # 종료 시
 - **[Google AVBTool](https://android.googlesource.com/platform/external/avb/)** - Android Verified Boot
 - **EDL-NG** - Qualcomm EDL 통신
 - **Android Platform Tools** - ADB/Fastboot
-- **[jjhitel](https://github.com/jjhitel/LTBox/releases/tag/v1.7.2)** - 롬 패치 일부부 인용
+- **[jjhitel](https://github.com/jjhitel/LTBox/releases/tag/v1.7.2)** - 롬 패치 일부 인용
 
 ---
 

@@ -228,7 +228,10 @@ def detect_rom_type(rom_path: str, target_model: str = None) -> Tuple[str, Dict[
     rom_info['type'] = rom_type
     rom_info['region_code'] = prop_type
     
-    type_display = f"{Colors.WARNING}내수롬 (CN){Colors.ENDC}" if rom_type == 'china' else f"{Colors.OKGREEN}글로벌롬 (ROW){Colors.ENDC}"
+    type_display = (
+        f"{Colors.WARNING}내수롬 (CN){Colors.ENDC}" if rom_type == 'china'
+        else f"{Colors.OKGREEN}글로벌롬 (ROW){Colors.ENDC}"
+    )
     print(f"\n{Colors.BOLD}[결과] 롬 타입:{Colors.ENDC} {type_display}")
     
     return rom_type, rom_info

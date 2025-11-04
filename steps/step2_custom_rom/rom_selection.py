@@ -6,6 +6,7 @@ from tkinter import filedialog
 from typing import Optional, Tuple
 
 from config.colors import Colors
+from config.paths import RSA_ROMFILES_DIR
 from core.logger import log_error
 
 
@@ -28,9 +29,12 @@ def select_rom_folder() -> Optional[str]:
         root.withdraw()  # 메인 창 숨김
         root.attributes('-topmost', True)  # 최상단 표시
         
+        # initialdir 설정: RSA 폴더 우선, 없으면 사용자 홈 드라이브
+        initial_dir = str(RSA_ROMFILES_DIR) if os.path.exists(RSA_ROMFILES_DIR) else os.path.expanduser("~")
+        
         folder_path = filedialog.askdirectory(
             title="롬파일 폴더를 선택하세요",
-            initialdir="C:\\"
+            initialdir=initial_dir
         )
         
         root.destroy()

@@ -11,7 +11,7 @@ from typing import Dict, List, Optional
 
 # 로컬 모듈
 from config.colors import Colors
-from config.paths import CURRENT_DIR, TOOL_DIR, VERIFY_TEMP_DIR, KNOWN_SIGNING_KEYS
+from config.paths import CURRENT_DIR, TOOL_DIR, VERIFY_TEMP_DIR, KNOWN_SIGNING_KEYS, PYTHON_EXE
 from config.constants import UIConstants
 from config.messages import TitleMessages
 from core.progress import init_step_progress, update_sub_task, global_print_progress, global_end_progress
@@ -161,8 +161,14 @@ def verify_partition_hash(image_dir: Path, partition_name: str) -> bool:
     
     print(f"  > 'avbtool print_partition_digests' 명령어로 {partition_name} 해시 비교 중...")
     
-    cmd_partition = [sys.executable, str(TOOL_DIR / "avbtool.py"), "print_partition_digests", "--image", str(partition_path)]
-    cmd_vm = [sys.executable, str(TOOL_DIR / "avbtool.py"), "print_partition_digests", "--image", str(vm_path)]
+    cmd_partition = [
+        PYTHON_EXE, str(TOOL_DIR / "avbtool.py"),
+        "print_partition_digests", "--image", str(partition_path)
+    ]
+    cmd_vm = [
+        PYTHON_EXE, str(TOOL_DIR / "avbtool.py"),
+        "print_partition_digests", "--image", str(vm_path)
+    ]
     
     stdout_partition = run_and_capture(cmd_partition)
     stdout_vm = run_and_capture(cmd_vm)
@@ -178,7 +184,10 @@ def verify_partition_hash(image_dir: Path, partition_name: str) -> bool:
         return False
     
     if hash_partition == hash_vm:
-        print(f"  > 'vbmeta.img'의 해시({Colors.OKGREEN}{hash_vm[:10]}...{Colors.ENDC})가 '{partition_name}.img'의 해시와 {Colors.OKGREEN}일치{Colors.ENDC}합니다.")
+        print(
+            f"  > 'vbmeta.img'의 해시({Colors.OKGREEN}{hash_vm[:10]}...{Colors.ENDC})가 "
+            f"'{partition_name}.img'의 해시와 {Colors.OKGREEN}일치{Colors.ENDC}합니다."
+        )
         return True
     else:
         print(f"  {Colors.FAIL}[실패] 해시 불일치!{Colors.ENDC}")
@@ -218,7 +227,10 @@ def verify_rollback_index(image_dir: Path, expected_rb_indices: Dict[str, str],
             print(f"  {Colors.FAIL}[실패] boot: 인덱스가 롬({rom_boot_rb})과 다름! (실제: {actual_boot_rb}){Colors.ENDC}")
             all_ok = False
         if rom_vbm_sys_rb and actual_vbm_sys_rb != rom_vbm_sys_rb:
-            print(f"  {Colors.FAIL}[실패] vbmeta_system: 인덱스가 롬({rom_vbm_sys_rb})과 다름! (실제: {actual_vbm_sys_rb}){Colors.ENDC}")
+            print(
+                f"  {Colors.FAIL}[실패] vbmeta_system: "
+                f"인덱스가 롬({rom_vbm_sys_rb})과 다름! (실제: {actual_vbm_sys_rb}){Colors.ENDC}"
+            )
             all_ok = False
         
         if all_ok:
@@ -474,7 +486,11 @@ def run_step_4(rom_path: str, want_root: bool, expected_rb_indices: Dict[str, st
     print(f"  {Colors.FAIL if results['fail'] > 0 else Colors.WARNING}실패: {results['fail']} 항목{Colors.ENDC}")
     
     if results['fail'] > 0:
-        msg = f"하나 이상의 검증에 실패했습니다!\n\n성공: {results['success']}, 실패: {results['fail']}\n\n'STEP 3' 프로그램을 다시 실행하거나 'image' 폴더의 .original 파일로 복구하십시오."
+        msg = (
+            f"하나 이상의 검증에 실패했습니다!\n\n"
+            f"성공: {results['success']}, 실패: {results['fail']}\n\n"
+            f"'STEP 3' 프로그램을 다시 실행하거나 'image' 폴더의 .original 파일로 복구하십시오."
+        )
         print(f"\n{Colors.FAIL}[!!!] {msg}{Colors.ENDC}")
         show_popup("검증 실패 - NG", msg, icon=UIConstants.ICON_ERROR)
         raise Exception("STEP 4 검증 실패")

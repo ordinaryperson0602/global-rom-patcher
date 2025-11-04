@@ -25,9 +25,16 @@ class ErrorMessages:
     # 지역 코드 관련
     REGION_MIXED_PRC_ROW = "vendor_boot 이미지에서 ROW/IROW와(과) PRC/IPRC이(가) 모두 발견되었습니다"
     REGION_MIXED_PRC_IPRC = "vendor_boot 이미지에서 지역코드가 PRC와 IPRC로 혼합되어 발견되었습니다."
-    REGION_ROW_NOT_SUPPORTED = "이 제품은 정발제품(ROW/IROW Hex)으로 확인됩니다.\n정발제품은 자동업데이트(OTA)를 이용해주세요."
+    REGION_ROW_NOT_SUPPORTED = (
+        "이 제품은 정발제품(ROW/IROW Hex)으로 확인됩니다.\n"
+        "정발제품은 자동업데이트(OTA)를 이용해주세요."
+    )
     REGION_NOT_FOUND = "vendor_boot 이미지에서 지역코드(ROW/IROW 또는 PRC/IPRC)를 찾을 수 없습니다."
-    REGION_PATTERN_NOT_FOUND = "vendor_boot에서 ROW/IROW 패턴을 찾을 수 없습니다.\n\nSTEP 2 검증을 통과했는데 패턴이 없다면\n파일이 손상되었거나 지원하지 않는 형식입니다."
+    REGION_PATTERN_NOT_FOUND = (
+        "vendor_boot에서 ROW/IROW 패턴을 찾을 수 없습니다.\n\n"
+        "STEP 2 검증을 통과했는데 패턴이 없다면\n"
+        "파일이 손상되었거나 지원하지 않는 형식입니다."
+    )
     
     # 파티션/파일 관련
     PARTITION_EXTRACTION_FAILED = "'{partition}' 파티션 추출 실패"

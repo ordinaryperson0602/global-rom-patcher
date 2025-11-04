@@ -41,7 +41,12 @@ def _extract_all_partitions(workflow: 'EDLWorkflow', slot_suffix: str, output_di
     """Task 3: 7개 파티션 추출"""
     from core.logger import info, log_extraction
     
-    info(f"백업용 파티션 추출 시작", slot=slot_suffix, output_dir=str(output_dir), partition_count=len(PartitionConstants.ALL_PARTITIONS))
+    info(
+        f"백업용 파티션 추출 시작",
+        slot=slot_suffix,
+        output_dir=str(output_dir),
+        partition_count=len(PartitionConstants.ALL_PARTITIONS)
+    )
     
     print(f"\n[정보] 7개 파티션을 추출합니다...\n")
     print(f"[정보] 출력 폴더: {output_dir}")
@@ -69,7 +74,12 @@ def _extract_all_partitions(workflow: 'EDLWorkflow', slot_suffix: str, output_di
     return extracted_files
 
 
-def _analyze_device_info(workflow: 'EDLWorkflow', slot_suffix: str, output_dir: Path, timestamp: str) -> Tuple[str, str, str, str, str, str]:
+def _analyze_device_info(
+    workflow: 'EDLWorkflow',
+    slot_suffix: str,
+    output_dir: Path,
+    timestamp: str
+) -> Tuple[str, str, str, str, str, str]:
     """Task 4: 기기 정보 분석"""
     from core.logger import info
     

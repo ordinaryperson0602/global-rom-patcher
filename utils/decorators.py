@@ -46,7 +46,12 @@ def handle_step_error(step_name: str, exit_on_error: bool = True) -> Callable:
                 log_error(error_msg, exception=e, context=f"{step_name}")
                 
                 if exit_on_error:
-                    show_popup(f"{step_name} 실패", f"오류가 발생했습니다:\n\n{type(e).__name__}: {e}\n\n로그 파일을 확인하세요.", icon=UIConstants.ICON_ERROR, exit_on_close=True)
+                    show_popup(
+                        f"{step_name} 실패",
+                        f"오류가 발생했습니다:\n\n{type(e).__name__}: {e}\n\n로그 파일을 확인하세요.",
+                        icon=UIConstants.ICON_ERROR,
+                        exit_on_close=True
+                    )
                 return None
         return wrapper
     return decorator

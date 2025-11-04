@@ -446,9 +446,17 @@ def _analyze_vendor_boot_hex(vendor_boot_path: str) -> Optional[str]:
     
     # PRC 확인 (NG 조건)
     if found_prc or found_iprc:
-        log_validation("vendor_boot Hex (PRC 확인)", False, f"PRC={'발견' if found_prc else '없음'}, IPRC={'발견' if found_iprc else '없음'}")
-        show_popup("NG", "vendor_boot에서 'PRC'(중국 롬)가 발견되었습니다.\n글로벌 롬(ROW)을 사용해주세요.",
-                  exit_on_close=False, icon=UIConstants.ICON_ERROR)
+        log_validation(
+            "vendor_boot Hex (PRC 확인)",
+            False,
+            f"PRC={'발견' if found_prc else '없음'}, IPRC={'발견' if found_iprc else '없음'}"
+        )
+        show_popup(
+            "NG",
+            "vendor_boot에서 'PRC'(중국 롬)가 발견되었습니다.\n글로벌 롬(ROW)을 사용해주세요.",
+            exit_on_close=False,
+            icon=UIConstants.ICON_ERROR
+        )
         print(f"\n{Colors.OKCYAN}메인 메뉴로 돌아갑니다...{Colors.ENDC}")
         input("\nEnter 키를 누르면 메인 메뉴로 돌아갑니다...")
         return None

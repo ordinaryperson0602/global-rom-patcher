@@ -6,13 +6,13 @@ from pathlib import Path
 from typing import Optional, Dict
 
 from config.colors import Colors
-from config.paths import TOOL_DIR, KNOWN_SIGNING_KEYS
+from config.paths import TOOL_DIR, KNOWN_SIGNING_KEYS, PYTHON_EXE
 from core.progress import global_end_progress
 
 
 def get_image_avb_details(image_path: Path) -> Optional[Dict]:
     """이미지의 AVB 메타데이터 파싱"""
-    cmd_params = [sys.executable, str(TOOL_DIR / "avbtool.py"), "info_image", "--image", str(image_path)]
+    cmd_params = [PYTHON_EXE, str(TOOL_DIR / "avbtool.py"), "info_image", "--image", str(image_path)]
     try:
         process = subprocess.run(
             cmd_params, check=True, capture_output=True,
