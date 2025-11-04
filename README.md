@@ -63,9 +63,9 @@
 
 ### 🎮 지원 기기
 
-- ✅ **Lenovo Yoga Pad Pro (TB520FU)** - 전체 변형 (CN/ROW) - 주요 타겟
-- ✅ **Lenovo Tab Extreme (TB321FU)** - 호환 가능 (일부 검증됨)
-- ❓ **기타 Lenovo 태블릿** - AOSP 테스트 키 사용 기기라면 가능 (미검증)
+- ✅ Lenovo Yoga Pad Pro (TB520FU)
+- ✅ Lenovo Xiaoxin Pad Pro GT (TB710FU)
+- ✅ Lenovo Legion Y700 3rd (TB321FU)
 
 ---
 
