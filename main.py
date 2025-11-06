@@ -23,19 +23,19 @@ import time
 from pathlib import Path
 
 # 로컬 모듈
-from config.colors import Colors
-from config.paths import (
+from src.config import Colors
+from src.config import (
     CURRENT_DIR, ADB_EXE, EDL_NG_EXE, AVBTOOL_PY, LOADER_FILES, KNOWN_SIGNING_KEYS,
     TEMP_WORK_DIR, VERIFY_TEMP_DIR, STEP_DATA_FILE
 )
-from config.constants import UIConstants, APP_VERSION, APP_NAME, APP_AUTHOR, APP_LAST_UPDATED
-from config.messages import ErrorMessages, TitleMessages
-from core.logger import init_logger, close_logger, get_logger
-from core.data_manager import save_step_data, load_step_data, check_step_prerequisites
+from src.config import UIConstants, APP_VERSION, APP_NAME, APP_AUTHOR, APP_LAST_UPDATED
+from src.config import ErrorMessages, TitleMessages
+from src.logger import init_logger, close_logger
+from src.data_manager import save_step_data, load_step_data, check_step_prerequisites
 from utils.ui import show_popup, is_admin, get_platform_executable, disable_quickedit_mode, restore_console_mode
 
 # UI 모듈 import
-from ui.menu import show_custom_rom_step_menu
+from src.menu import show_custom_rom_step_menu
 
 # STEP 모듈 import
 from steps.step1_extract import run_step_1
@@ -44,20 +44,17 @@ from steps.step3_patch import run_step_3
 from steps.step4_verify import run_step_4
 
 
-# ============================================================================
 # 설정 관리
-# ============================================================================
-from core.config_manager import get_config
+
+from src.config_manager import get_config
 
 app_config = get_config()
 
-# Logger (모듈 레벨)
-logger = None
+# Logger는 core.logger에서 관리
 
 
-# ============================================================================
 # 헬퍼 함수
-# ============================================================================
+
 
 def request_admin_privileges() -> None:
     """관리자 권한 요청 (Windows 전용)"""
@@ -303,14 +300,7 @@ def main_continuous() -> None:
         from core.logger import log_error
         log_error(error_msg, exception=e, context=current_step_name)
         
-        show_popup(
-            "치명적 오류 발생",
-            f"작업 실행 중 오류가 발생했습니다.\n\n"
-            f"단계: {current_step_name}\n"
-            f"오류: {error_msg}\n\n"
-            f"자세한 내용은 로그 파일을 확인하세요.",
-            icon=UIConstants.ICON_ERROR
-        )
+        # 팝업은 각 STEP에서 이미 표시했으므로 여기서는 표시하지 않음 (중복 방지)
         
         if current_step_name == "STEP 3 (롬파일 패치)" and rom_path and rom_path_raw:
             print(f"\n{Colors.WARNING}--- STEP 3 오류 감지. 롬파일 롤백 시도... ---{Colors.ENDC}")
@@ -484,9 +474,8 @@ def execute_step_4() -> bool:
         return False
 
 
-# ============================================================================
 # 추가 유틸리티 함수 (NEW!)
-# ============================================================================
+
 
 def execute_backup_device() -> bool:
     """기기 정보 백업"""
@@ -649,9 +638,8 @@ def execute_custom_rom_auto() -> bool:
 # show_custom_rom_step_menu는 ui/menu.py로 이동됨
 
 
-# ============================================================================
 # Custom ROM Manual Mode - Helper Functions
-# ============================================================================
+
 
 def _load_custom_rom_saved_data() -> dict:
     """저장된 Custom ROM 데이터 로드"""
@@ -894,9 +882,8 @@ def _execute_custom_rom_step5(custom_rom_data: dict) -> bool:
         return False
 
 
-# ============================================================================
 # Custom ROM Manual Mode - Main Function
-# ============================================================================
+
 
 def execute_custom_rom_manual() -> bool:
     """사용자 지정 롬파일 단동 패치 (STEP 선택) - 리팩토링 버전"""
@@ -990,7 +977,17 @@ def main_individual() -> None:
 
 def show_startup_banner() -> None:
     """프로그램 시작 배너 표시"""
-    print(f"""
+    # UTF-8 출력을 위한 설정 (Windows cp949 인코딩 오류 방지)
+    try:
+        import sys
+        import io
+        if sys.platform == 'win32' and hasattr(sys.stdout, 'reconfigure'):
+            sys.stdout.reconfigure(encoding='utf-8')
+    except:
+        pass
+    
+    try:
+        print(f"""
 {Colors.OKCYAN}
   ██████╗  ██████╗ ███╗   ███╗    ██████╗  █████╗ ████████╗ ██████╗██╗  ██╗███████╗██████╗ 
   ██╔══██╗██╔═══██╗████╗ ████║    ██╔══██╗██╔══██╗╚══██╔══╝██╔════╝██║  ██║██╔════╝██╔══██╗
@@ -1005,11 +1002,19 @@ def show_startup_banner() -> None:
                     Author: {APP_AUTHOR}
                     Last Updated: {APP_LAST_UPDATED}
     """)
+    except UnicodeEncodeError:
+        # 인코딩 오류 시 간단한 텍스트 배너로 대체
+        print(f"\n{Colors.BOLD}{'='*80}{Colors.ENDC}")
+        print(f"{Colors.OKCYAN}{Colors.BOLD}    {APP_NAME} v{APP_VERSION}{Colors.ENDC}")
+        print(f"    Author: {APP_AUTHOR}")
+        print(f"    Last Updated: {APP_LAST_UPDATED}")
+        print(f"{Colors.BOLD}{'='*80}{Colors.ENDC}\n")
 
 
 def show_user_agreement() -> bool:
     """사용자 동의서 표시 및 동의 확인"""
-    agreement_file = Path("프로그램_사용자_동의서.txt")
+    from config.paths import USER_AGREEMENT_FILE
+    agreement_file = USER_AGREEMENT_FILE
     
     # 동의서 파일이 없으면 프로그램 종료
     if not agreement_file.exists():
@@ -1082,8 +1087,8 @@ def main() -> None:
     # 시작 배너 표시
     show_startup_banner()
     
-    # 딜레이 (나중에 다시 활성화 가능)
-    time.sleep(1.5)  # 2초로 설정 (변경 가능)
+    # 딜레이 제거 - 불필요한 대기 시간 최적화
+    # time.sleep(1.5)
     
     # 사용자 동의서 표시 및 동의 확인
     if not show_user_agreement():

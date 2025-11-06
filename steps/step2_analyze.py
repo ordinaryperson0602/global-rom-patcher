@@ -10,13 +10,13 @@ from pathlib import Path
 from typing import Dict, Optional, Tuple
 
 # 로컬 모듈
-from config.colors import Colors
-from config.paths import AVBTOOL_PY, ROM_DIR_STR
-from config.constants import UIConstants, FolderConstants, FileConstants, ValidationConstants
-from config.messages import ErrorMessages, InfoMessages, TitleMessages
-from core.progress import init_step_progress, update_sub_task, global_print_progress, global_end_progress
-from core.context import CopyProgressTracker
-from core.logger import log_error
+from src.config import Colors
+from src.config import AVBTOOL_PY, ROM_DIR_STR
+from src.config import UIConstants, FolderConstants, FileConstants, ValidationConstants, HEX_PRC, HEX_IPRC, HEX_ROW, HEX_IROW
+from src.config import ErrorMessages, InfoMessages, TitleMessages
+from src.progress import init_step_progress, update_sub_task, global_print_progress, global_end_progress
+from src.context import CopyProgressTracker
+from src.logger import log_error
 from utils.ui import show_popup, show_popup_yesno
 from utils.command import run_command
 from utils.file_operations import remove_readonly_and_delete, get_total_files, copy_with_progress
@@ -26,9 +26,8 @@ from utils.region_check import check_region_patterns, check_region_in_image
 _copy_tracker = CopyProgressTracker()
 
 
-# ============================================================================
 # Helper Functions for run_step_2 (리팩토링)
-# ============================================================================
+
 
 def _check_rom_folders() -> Tuple[Optional[str], Optional[str]]:
     """롬 폴더 확인 및 _RAW 백업 처리
@@ -316,7 +315,8 @@ def _analyze_vbmeta_prop(vbmeta_path: str, target_model: str) -> Optional[Tuple[
     
     log_validation("vbmeta.img 존재 여부", True, f"파일 크기: {os.path.getsize(vbmeta_path)} bytes")
     
-    cmd = [sys.executable, str(AVBTOOL_PY), "info_image", "--image", vbmeta_path]
+    from config.paths import PYTHON_EXE
+    cmd = [PYTHON_EXE, str(AVBTOOL_PY), "info_image", "--image", vbmeta_path]
     success, stdout, stderr = run_command(cmd, check=False)
     
     if not success:
@@ -341,6 +341,7 @@ def _analyze_vbmeta_prop(vbmeta_path: str, target_model: str) -> Optional[Tuple[
     
     if not fingerprint_lines:
         log_validation("fingerprint 파싱", False, "fingerprint를 찾을 수 없음")
+        print(f"\n{Colors.FAIL}[NG] vbmeta Prop에서 fingerprint를 찾을 수 없습니다.{Colors.ENDC}")
         show_popup("NG", "vbmeta Prop에서 fingerprint를 찾을 수 없습니다.",
                   exit_on_close=False, icon=UIConstants.ICON_ERROR)
         print(f"\n{Colors.OKCYAN}메인 메뉴로 돌아갑니다...{Colors.ENDC}")
@@ -353,6 +354,8 @@ def _analyze_vbmeta_prop(vbmeta_path: str, target_model: str) -> Optional[Tuple[
     
     if has_prc:
         log_validation("국가 코드 (PRC 확인)", False, "PRC 발견 - 중국 롬")
+        print(f"\n{Colors.FAIL}[NG] vbmeta Prop에서 'PRC'(중국 롬)가 발견되었습니다.{Colors.ENDC}")
+        print(f"{Colors.FAIL}글로벌 롬(ROW)을 사용해주세요.{Colors.ENDC}")
         show_popup("NG", "vbmeta Prop에서 'PRC'(중국 롬)가 발견되었습니다.\n글로벌 롬(ROW)을 사용해주세요.",
                   exit_on_close=False, icon=UIConstants.ICON_ERROR)
         print(f"\n{Colors.OKCYAN}메인 메뉴로 돌아갑니다...{Colors.ENDC}")
@@ -418,13 +421,29 @@ def _analyze_vendor_boot_hex(vendor_boot_path: str) -> Optional[str]:
     file_size = os.path.getsize(vendor_boot_path)
     log_validation("vendor_boot.img 존재 여부", True, f"파일 크기: {file_size} bytes")
     
+    # 메모리 최적화: 청크 단위로 읽기 (100MB 파일을 한번에 로드하지 않음)
+    CHUNK_SIZE = 10 * 1024 * 1024  # 10MB
+    found_prc = False
+    found_iprc = False
+    found_row = False
+    found_irow = False
+    
     with open(vendor_boot_path, 'rb') as f:
-        binary_data = f.read()
+        while True:
+            chunk = f.read(CHUNK_SIZE)
+            if not chunk:
+                break
+            
+            if not found_prc and HEX_PRC in chunk:
+                found_prc = True
+            if not found_iprc and HEX_IPRC in chunk:
+                found_iprc = True
+            if not found_row and HEX_ROW in chunk:
+                found_row = True
+            if not found_irow and HEX_IROW in chunk:
+                found_irow = True
     
-    info("바이너리 데이터 읽기 완료", size=len(binary_data))
-    
-    # 패턴 검사 (반환 순서: PRC, IPRC, ROW, IROW)
-    found_prc, found_iprc, found_row, found_irow = check_region_patterns(binary_data)
+    info("바이너리 데이터 읽기 완료 (청크 방식)", size=file_size)
     
     info(
         "Hex 패턴 검사 결과",
@@ -491,16 +510,19 @@ def _extract_rollback_index(image_path: str, image_name: str) -> Optional[str]:
         rollback_index 또는 None if error
     """
     if not os.path.exists(image_path):
+        print(f"\n{Colors.FAIL}[NG] {image_name}가 없습니다: {image_path}{Colors.ENDC}")
         show_popup("NG", f"{image_name}가 없습니다:\n{image_path}",
                   exit_on_close=False, icon=UIConstants.ICON_ERROR)
         print(f"\n{Colors.OKCYAN}메인 메뉴로 돌아갑니다...{Colors.ENDC}")
         input("\nEnter 키를 누르면 메인 메뉴로 돌아갑니다...")
         return None
     
-    cmd = [sys.executable, str(AVBTOOL_PY), "info_image", "--image", image_path]
+    from config.paths import PYTHON_EXE
+    cmd = [PYTHON_EXE, str(AVBTOOL_PY), "info_image", "--image", image_path]
     success, stdout, stderr = run_command(cmd, check=False)
     
     if not success:
+        print(f"\n{Colors.FAIL}[NG] {image_name} 분석 실패: {stderr}{Colors.ENDC}")
         show_popup("NG", f"{image_name} 분석 실패:\n{stderr}",
                   exit_on_close=False, icon=UIConstants.ICON_ERROR)
         print(f"\n{Colors.OKCYAN}메인 메뉴로 돌아갑니다...{Colors.ENDC}")
@@ -509,6 +531,7 @@ def _extract_rollback_index(image_path: str, image_name: str) -> Optional[str]:
     
     match = re.search(r"Rollback Index:\s+(\d+)", stdout)
     if not match:
+        print(f"\n{Colors.FAIL}[NG] {image_name}에서 Rollback Index를 찾을 수 없습니다.{Colors.ENDC}")
         show_popup("NG", f"{image_name}에서 Rollback Index를 찾을 수 없습니다.",
                   exit_on_close=False, icon=UIConstants.ICON_ERROR)
         print(f"\n{Colors.OKCYAN}메인 메뉴로 돌아갑니다...{Colors.ENDC}")
@@ -590,9 +613,9 @@ def save_rom_info_to_file(model: str, rom_version: str, hex_code: str, country_c
         error_msg = f"정보 파일 저장 중 오류 발생: {e}"
         print(f"[경고] {error_msg}")
         log_error(error_msg, exception=e, context="STEP 2 - ROM 정보 파일 저장")
-# ============================================================================
+
 # Main Function (리팩토링: 597줄 → 152줄)
-# ============================================================================
+
 
 def run_step_2(target_model_number: str, step1_output_dir: str) -> Tuple[Optional[str], Optional[Dict[str, str]]]:
     """STEP 2 메인 로직 (리팩토링 버전)"""

@@ -63,9 +63,8 @@ def get_platform_executable(name: str) -> Path:
     return ROOTING_TOOL_DIR / exe_name
 
 
-# ============================================================================
 # Windows Console QuickEdit Mode 제어
-# ============================================================================
+
 
 # Windows Console Mode 플래그
 ENABLE_QUICK_EDIT_MODE = 0x0040

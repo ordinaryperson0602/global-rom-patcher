@@ -5,9 +5,9 @@ import tkinter as tk
 from tkinter import filedialog
 from typing import Optional, Tuple
 
-from config.colors import Colors
-from config.paths import RSA_ROMFILES_DIR
-from core.logger import log_error
+from src.config import Colors
+from src.config import RSA_ROMFILES_DIR
+from src.logger import log_error
 
 
 def select_rom_folder() -> Optional[str]:

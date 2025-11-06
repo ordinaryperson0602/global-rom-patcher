@@ -12,14 +12,14 @@ from pathlib import Path
 from typing import Dict, Optional, Tuple
 
 # 로컬 모듈
-from config.colors import Colors
-from config.paths import ADB_EXE, EDL_NG_EXE, AVBTOOL_PY, LOADER_FILES, ROMFILE_PATCH_BACKUP_DIR
-from config.constants import get_model_config, UIConstants, TimingConstants
-from config.messages import ErrorMessages, InfoMessages, TitleMessages, WARNING_BANNER
-from core.exceptions import EDLConnectionError
-from core.progress import init_step_progress, update_sub_task, global_print_progress, global_end_progress
-from core.context import DeviceContext
-from core.logger import log_error, log_step_start, log_step_end
+from src.config import Colors
+from src.config import ADB_EXE, EDL_NG_EXE, AVBTOOL_PY, LOADER_FILES, ROMFILE_PATCH_BACKUP_DIR
+from src.config import get_model_config, UIConstants, TimingConstants
+from src.config import ErrorMessages, InfoMessages, TitleMessages, WARNING_BANNER
+from src.exceptions import EDLConnectionError
+from src.progress import init_step_progress, update_sub_task, global_print_progress, global_end_progress
+from src.context import DeviceContext
+from src.logger import log_error, log_step_start, log_step_end
 from utils.ui import show_popup, clear_screen
 from utils.command import run_command
 from utils.region_check import validate_region_code
@@ -724,7 +724,6 @@ def _save_device_info_and_validate(device_info: Dict[str, str], output_dir_path:
         raise Exception("롤백 인덱스 파싱 실패")
     
     return device_info["model"], device_rollback_indices, output_dir_path, step1_current_step
-
 
 
 def run_step_1() -> Tuple[Optional[str], Optional[Dict[str, str]], Optional[str]]:

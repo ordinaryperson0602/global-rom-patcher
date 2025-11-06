@@ -6,15 +6,15 @@ import time
 from pathlib import Path
 from typing import Optional, Callable
 
-from config.colors import Colors
-from config.paths import ADB_EXE, EDL_NG_EXE, LOADER_FILES, CURRENT_DIR
-from config.constants import TimingConstants
-from config.messages import InfoMessages, WARNING_BANNER
-from core.progress import (
+from src.config import Colors
+from src.config import ADB_EXE, EDL_NG_EXE, LOADER_FILES, CURRENT_DIR
+from src.config import TimingConstants
+from src.config import InfoMessages, WARNING_BANNER
+from src.progress import (
     init_standalone_progress, update_standalone_task,
     print_standalone_progress, end_standalone_progress
 )
-from core.exceptions import EDLConnectionError
+from src.exceptions import EDLConnectionError
 from utils.command import run_command
 from utils.ui import clear_screen
 from utils.device_utils import (
@@ -24,9 +24,8 @@ from utils.device_utils import (
 )
 
 
-# ============================================================================
 # 헬퍼 함수
-# ============================================================================
+
 
 def select_loader_file() -> Optional[Path]:
     """
@@ -261,9 +260,8 @@ def handle_gpt_parsing_error() -> None:
         raise EDLConnectionError("GPT 파싱 오류 - 강제 재부팅 필요")
 
 
-# ============================================================================
 # EDLWorkflow 클래스
-# ============================================================================
+
 
 class EDLWorkflow:
     """
@@ -528,9 +526,8 @@ class EDLWorkflow:
         return slot_suffix, model_prop
 
 
-# ============================================================================
 # 파티션 읽기/쓰기 함수
-# ============================================================================
+
 
 def read_partition(loader_path: Path, partition_name: str, output_file: Path, retry: bool = False) -> bool:
     """

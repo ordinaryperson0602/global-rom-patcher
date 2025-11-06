@@ -4,9 +4,9 @@
 기존 코드와 100% 호환되며, 중복을 제거하기 위해 추출되었습니다.
 """
 from typing import Tuple, Optional
-from config.paths import ADB_EXE
-from config.messages import ErrorMessages
-from config.colors import Colors
+from src.config import ADB_EXE
+from src.config import ErrorMessages
+from src.config import Colors
 from utils.command import run_command
 
 

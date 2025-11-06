@@ -5,10 +5,10 @@ import traceback
 from pathlib import Path
 from typing import Optional
 
-from config.colors import Colors
-from config.paths import ROM_TOOLS_DIR
-from core.context import CopyProgressTracker
-from core.logger import log_error
+from src.config import Colors
+from src.config import ROM_TOOLS_DIR
+from src.context import CopyProgressTracker
+from src.logger import log_error
 from utils.file_operations import get_total_files, remove_readonly_and_delete, copy_with_progress
 
 

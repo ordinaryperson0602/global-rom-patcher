@@ -3,11 +3,11 @@ import functools
 import traceback
 from typing import Callable, Any
 
-from config.constants import UIConstants
-from config.colors import Colors
+from src.config import UIConstants
+from src.config import Colors
 from utils.ui import show_popup
-from core.progress import global_end_progress
-from core.logger import log_error
+from src.progress import global_end_progress
+from src.logger import log_error
 
 
 def handle_step_error(step_name: str, exit_on_error: bool = True) -> Callable:

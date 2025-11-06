@@ -5,9 +5,9 @@ import re
 from pathlib import Path
 from typing import Optional, Dict
 
-from config.colors import Colors
-from config.paths import TOOL_DIR, KNOWN_SIGNING_KEYS, PYTHON_EXE
-from core.progress import global_end_progress
+from src.config import Colors
+from src.config import TOOL_DIR, KNOWN_SIGNING_KEYS, PYTHON_EXE
+from src.progress import global_end_progress
 
 
 def get_image_avb_details(image_path: Path) -> Optional[Dict]:

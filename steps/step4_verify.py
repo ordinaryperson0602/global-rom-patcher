@@ -10,12 +10,12 @@ from pathlib import Path
 from typing import Dict, List, Optional
 
 # 로컬 모듈
-from config.colors import Colors
-from config.paths import CURRENT_DIR, TOOL_DIR, VERIFY_TEMP_DIR, KNOWN_SIGNING_KEYS, PYTHON_EXE
-from config.constants import UIConstants
-from config.messages import TitleMessages
-from core.progress import init_step_progress, update_sub_task, global_print_progress, global_end_progress
-from core.logger import log_error
+from src.config import Colors
+from src.config import CURRENT_DIR, TOOL_DIR, VERIFY_TEMP_DIR, KNOWN_SIGNING_KEYS, PYTHON_EXE
+from src.config import UIConstants
+from src.config import TitleMessages
+from src.progress import init_step_progress, update_sub_task, global_print_progress, global_end_progress
+from src.logger import log_error
 from utils.ui import show_popup, get_platform_executable
 from utils.command import run_external_command
 from utils.avb_tools import get_image_avb_details
@@ -392,7 +392,7 @@ def run_step_4(rom_path: str, want_root: bool, expected_rb_indices: Dict[str, st
     print("=" * 60)
     
     if not image_dir.is_dir():
-        print(f"{Colors.FAIL}[!] 오류: 'image' 폴더를 찾을 수 없습니다: {image_dir}{Colors.ENDC}", file=sys.stderr)
+        print(f"{Colors.FAIL}[NG] 오류: 'image' 폴더를 찾을 수 없습니다: {image_dir}{Colors.ENDC}", file=sys.stderr)
         show_popup("STEP 4 오류 - NG", f"'image' 폴더를 찾을 수 없습니다:\n{image_dir}", 
                   exit_on_close=False, icon=UIConstants.ICON_ERROR)
         print(f"\n{Colors.OKCYAN}메인 메뉴로 돌아갑니다...{Colors.ENDC}")
@@ -491,7 +491,7 @@ def run_step_4(rom_path: str, want_root: bool, expected_rb_indices: Dict[str, st
             f"성공: {results['success']}, 실패: {results['fail']}\n\n"
             f"'STEP 3' 프로그램을 다시 실행하거나 'image' 폴더의 .original 파일로 복구하십시오."
         )
-        print(f"\n{Colors.FAIL}[!!!] {msg}{Colors.ENDC}")
+        print(f"\n{Colors.FAIL}[NG] {msg}{Colors.ENDC}")
         show_popup("검증 실패 - NG", msg, icon=UIConstants.ICON_ERROR)
         raise Exception("STEP 4 검증 실패")
     else:

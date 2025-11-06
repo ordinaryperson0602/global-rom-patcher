@@ -6,8 +6,8 @@ from pathlib import Path
 from typing import Optional, Dict
 from datetime import datetime
 
-from config.colors import Colors
-from config.paths import AVBTOOL_PY
+from src.config import Colors
+from src.config import AVBTOOL_PY
 from utils.avb_tools import get_image_avb_details
 from utils.command import run_command
 from utils.region_check import check_region_patterns
@@ -77,7 +77,8 @@ def save_custom_rom_info_to_file(rom_path: str, rom_type: str, target_model: str
     
     if os.path.exists(vbmeta_path):
         try:
-            cmd = [sys.executable, AVBTOOL_PY, 'info_image', '--image', vbmeta_path]
+            from config.paths import PYTHON_EXE
+            cmd = [PYTHON_EXE, AVBTOOL_PY, 'info_image', '--image', vbmeta_path]
             success, output, _ = run_command(cmd, "vbmeta.img Prop 추출")
             
             if success and output:

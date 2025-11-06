@@ -4,10 +4,10 @@ import os
 import sys
 from typing import List, Tuple
 from pathlib import Path
-from core.logger import log_command_output
-from core.progress import global_end_progress
-from config.colors import Colors
-from config.paths import TOOL_DIR, ROOTING_TOOL_DIR
+from src.logger import log_command_output
+from src.progress import global_end_progress
+from src.config import Colors
+from src.config import TOOL_DIR, ROOTING_TOOL_DIR
 
 def run_command(command: List[str], step_name: str = "", check: bool = True) -> Tuple[bool, str, str]:
     """
@@ -22,13 +22,23 @@ def run_command(command: List[str], step_name: str = "", check: bool = True) -> 
         (성공 여부, stdout, stderr) 튜플
     """
     try:
+        # 성능 최적화: bufsize=-1 (기본 버퍼 크기 사용), timeout 추가
         process = subprocess.run(
-            command, check=check, text=True, 
-            encoding='utf-8', errors='ignore', 
-            capture_output=True
+            command, 
+            check=check, 
+            text=True, 
+            encoding='utf-8', 
+            errors='ignore', 
+            capture_output=True,
+            timeout=300,  # 5분 타임아웃
+            bufsize=-1  # 시스템 기본 버퍼 사용 (최적 성능)
         )
         log_command_output(command, process.stdout, process.stderr, True)
         return True, process.stdout, process.stderr
+    except subprocess.TimeoutExpired:
+        print(f"{Colors.FAIL}[실패] 명령어 실행 시간 초과 (5분){Colors.ENDC}")
+        log_command_output(command, "", "TimeoutExpired", False)
+        return False, "", "TimeoutExpired"
     except subprocess.CalledProcessError as e:
         stdout_output = e.stdout if hasattr(e, 'stdout') and e.stdout else ""
         stderr_output = e.stderr if e.stderr else ""

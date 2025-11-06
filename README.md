@@ -85,8 +85,11 @@
 ```
 ✓ 관리자 권한 계정
 ✓ Qualcomm EDL 드라이버
-✓ Python 3.8+ (소스 실행 시) 또는 EXE 파일
+✓ Python 설치 불필요 (Embeddable Python 포함)
 ```
+
+> **💡 Python 설치 불필요!**  
+> 이 프로그램은 Python Embeddable Package를 포함하고 있어 Python이 설치되지 않은 환경에서도 실행 가능합니다.
 
 ### 권장 사항
 - 💾 안정적인 전원 공급 (EDL 작업 중 전원 차단 시 벽돌화 위험)
@@ -97,7 +100,7 @@
 
 ## 📥 설치 방법
 
-### 옵션 A: EXE 파일 사용 (초보자 권장)
+### 옵션 A: EXE 파일 사용 (초보자 권장) ⭐ **Python 설치 불필요!**
 
 **가장 쉬운 방법입니다. Python 설치 불필요!**
 
@@ -128,9 +131,14 @@ venv\Scripts\activate
 # 3. 의존성 설치
 pip install -r requirements.txt
 
-# 4. 실행
+# 4. Python Embeddable Package 설치 (선택사항, Python 미설치 환경 지원)
+python setup_python_embedded.py
+
+# 5. 실행
 python main.py
 ```
+
+> **💡 Tip**: `setup_python_embedded.py`를 실행하면 Python이 설치되지 않은 환경에서도 EXE가 실행됩니다!
 
 ---
 

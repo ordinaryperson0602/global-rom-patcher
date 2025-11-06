@@ -4,8 +4,8 @@ import re
 import sys
 from typing import Tuple, Dict, Any
 
-from config.colors import Colors
-from config.paths import AVBTOOL_PY
+from src.config import Colors
+from src.config import AVBTOOL_PY
 from utils.command import run_command
 
 
@@ -19,7 +19,8 @@ def _analyze_vbmeta_prop(vbmeta_path: str, target_model: str = None) -> Tuple[st
     
     try:
         # avbtool로 Prop 추출
-        cmd = [sys.executable, AVBTOOL_PY, 'info_image', '--image', vbmeta_path]
+        from config.paths import PYTHON_EXE
+        cmd = [PYTHON_EXE, AVBTOOL_PY, 'info_image', '--image', vbmeta_path]
         success, output, _ = run_command(cmd, "vbmeta.img Prop 추출")
         
         if not success or not output:
@@ -177,7 +178,6 @@ def _make_final_decision(prop_type: str, has_vendor_boot: bool, hex_type: str) -
     
     else:
         raise Exception("알 수 없는 Prop 타입입니다")
-
 
 
 def detect_rom_type(rom_path: str, target_model: str = None) -> Tuple[str, Dict[str, Any]]:

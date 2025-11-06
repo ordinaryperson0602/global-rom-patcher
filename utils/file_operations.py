@@ -9,7 +9,7 @@ from typing import Any, Callable, TYPE_CHECKING
 if TYPE_CHECKING:
     from core.context import CopyProgressTracker
 
-from config.colors import Colors
+from src.config import Colors
 
 
 def _get_long_path(path: str) -> str:

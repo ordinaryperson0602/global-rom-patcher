@@ -2,10 +2,10 @@
 import os
 from typing import Tuple
 
-from config.colors import Colors
-from config.constants import UIConstants
-from config.messages import TitleMessages
-from core.logger import log_error
+from src.config import Colors
+from src.config import UIConstants
+from src.config import TitleMessages
+from src.logger import log_error
 from utils.ui import show_popup
 
 

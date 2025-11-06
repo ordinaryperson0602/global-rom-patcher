@@ -1,0 +1,49 @@
+# Python 캐시 파일
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+*.pyo
+
+# PyInstaller 빌드 결과
+build/
+dist/
+*.spec.bak
+
+# 임시 파일
+patch_temp/
+verify_temp/
+*.tmp
+*.log
+
+# 출력 폴더 (사용자 데이터)
+Output/
+
+# 데이터 파일
+step_data.json
+custom_rom_step_data.json
+
+# OS 파일
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE 설정
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 백업 파일
+*.bak
+*.backup
+*_backup
+
+# 압축 파일
+*.zip
+*.tar.gz
+*.rar
+
+# Tools 폴더는 Git에 포함됨 (프로그램 실행 필수)
+

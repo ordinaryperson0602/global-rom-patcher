@@ -13,14 +13,14 @@ from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
 # 로컬 모듈
-from config.colors import Colors
-from config.paths import (
+from src.config import Colors
+from src.config import (
     CURRENT_DIR, TOOL_DIR, ROOTING_TOOL_DIR, KNOWN_SIGNING_KEYS, TEMP_WORK_DIR, PYTHON_EXE
 )
-from config.constants import GKI_REPO_URL, GKI_TAG, KSU_MANAGER_REPO, KSU_MANAGER_TAG, UIConstants
-from config.messages import ErrorMessages, TitleMessages
-from core.progress import init_step_progress, update_sub_task, global_print_progress, global_end_progress
-from core.logger import log_command_output, log_error
+from src.config import GKI_REPO_URL, GKI_TAG, KSU_MANAGER_REPO, KSU_MANAGER_TAG, UIConstants
+from src.config import ErrorMessages, TitleMessages
+from src.progress import init_step_progress, update_sub_task, global_print_progress, global_end_progress
+from src.logger import log_command_output, log_error
 from utils.ui import show_popup, get_platform_executable
 from utils.command import run_external_command
 from utils.avb_tools import get_image_avb_details, find_signing_key
@@ -308,9 +308,8 @@ def apply_rollback_indices(image_dir: Path, rb_indices: Dict[str, str],
     return current_step
 
 
-# ============================================================================
 # start_modification Helper Functions (리팩토링)
-# ============================================================================
+
 
 def _check_image_directory(rom_base_directory: str) -> Optional[Path]:
     """image 디렉토리 확인"""
@@ -479,7 +478,6 @@ def _patch_vendor_boot_and_vbmeta(image_dir: Path, current_step: int, total_step
     return current_step
 
 
-
 def start_modification(rom_base_directory: str, perform_root_patch: bool,
                        rb_indices: Optional[Dict[str, str]]) -> None:
     """STEP 3 메인 수정 작업 - 리팩토링 버전"""
@@ -581,10 +579,8 @@ def start_modification(rom_base_directory: str, perform_root_patch: bool,
             shutil.rmtree(TEMP_WORK_DIR)
 
 
-
-# ============================================================================
 # China ROM Helper Functions (Shared)
-# ============================================================================
+
 
 def _backup_china_files(image_dir: Path) -> Dict[str, Path]:
     """내수 롬 파일 백업"""
@@ -752,11 +748,8 @@ def start_modification_china(rom_base_directory: str, perform_root_patch: bool,
     global_print_progress(5, 5, "STEP 3")
 
 
-
-
-# ============================================================================
 # STEP 3-Custom: Helper Functions (리팩토링)
-# ============================================================================
+
 
 def _ask_for_rooting_custom(rom_type: str) -> bool:
     """사용자에게 루팅 선택을 요청"""
@@ -863,7 +856,6 @@ def _check_arb_custom(device_indices: Dict[str, str],
         return {}
 
 
-
 def run_step_3_custom(rom_base_directory: str, rom_type: str, device_indices: Dict[str, str],
                       rom_indices: Optional[Dict[str, str]] = None) -> Optional[Tuple[bool, Dict[str, str]]]:
     """
@@ -924,9 +916,9 @@ def run_step_3_custom(rom_base_directory: str, rom_type: str, device_indices: Di
         if TEMP_WORK_DIR.exists():
             shutil.rmtree(TEMP_WORK_DIR)
 
-# ============================================================================
+
 # STEP 3 Helper Functions
-# ============================================================================
+
 
 def _ask_for_rooting() -> bool:
     """루팅 여부 확인"""
@@ -1023,9 +1015,8 @@ def _check_arb_and_get_patch_indices(device_indices: Dict[str, str],
             print("! 'y' 또는 'n'만 입력해 주세요.")
 
 
-# ============================================================================
 # STEP 3 Main Function
-# ============================================================================
+
 
 def run_step_3(rom_base_directory: str, device_indices: Dict[str, str],
                rom_indices: Dict[str, str]) -> Optional[Tuple[bool, Dict[str, str]]]:

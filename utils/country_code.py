@@ -12,11 +12,11 @@ from pathlib import Path
 from datetime import datetime
 from typing import Optional, Dict, Tuple
 
-from config.colors import Colors
-from config.paths import CURRENT_DIR, COUNTRY_CODE_BACKUP_DIR, EDL_NG_EXE
-from config.constants import UIConstants
-from config.messages import TitleMessages, ErrorMessages
-from core.exceptions import (
+from src.config import Colors
+from src.config import CURRENT_DIR, COUNTRY_CODE_BACKUP_DIR, EDL_NG_EXE
+from src.config import UIConstants
+from src.config import TitleMessages, ErrorMessages
+from src.exceptions import (
     EDLConnectionError,
     LoaderNotFoundError,
     UserCancelledError,
@@ -24,8 +24,8 @@ from core.exceptions import (
     PatchVerificationError,
     PatchCreationError
 )
-from core.logger import log_error, log_step_start, log_step_end
-from core.progress import (
+from src.logger import log_error, log_step_start, log_step_end
+from src.progress import (
     init_standalone_progress, update_standalone_task,
     print_standalone_progress, end_standalone_progress
 )
@@ -34,9 +34,8 @@ from utils.command import run_command
 from utils.edl_workflow import EDLWorkflow, select_loader_file
 
 
-# ============================================================================
 # 상수 정의
-# ============================================================================
+
 
 # 국가코드 패턴
 COUNTRY_CODE_CN = b'CNXX'
@@ -50,9 +49,8 @@ ANALYSIS_OUTPUT_DIR = CURRENT_DIR / "Output" / "Country_Code_Analysis"
 PATCH_OUTPUT_DIR = CURRENT_DIR / "Output" / "Country_Code_Patch"
 
 
-# ============================================================================
 # 공통 함수
-# ============================================================================
+
 
 def analyze_country_code(file_path: Path) -> Dict[str, int]:
     """
@@ -166,9 +164,8 @@ def create_backup_folder() -> Path:
     return backup_dir
 
 
-# ============================================================================
 # STEP 함수들 (공통)
-# ============================================================================
+
 
 def step1_edl_entry() -> Optional[EDLWorkflow]:
     """
@@ -536,9 +533,8 @@ def step5_reboot() -> bool:
         return False
 
 
-# ============================================================================
 # 자동 모드 (CN→KR 고정) - Helper Functions (리팩토링)
-# ============================================================================
+
 
 def _read_all_partitions(loader_path: str) -> Dict[str, Path]:
     """모든 파티션 읽기
@@ -786,9 +782,8 @@ def _show_manual_reboot_instructions() -> None:
     print(f"  4. 태블릿이 정상 부팅될 때까지 기다리세요\n")
 
 
-# ============================================================================
 # 자동 모드 메인 함수 (리팩토링: 318줄 → 150줄)
-# ============================================================================
+
 
 def run_auto_country_change() -> bool:
     """국가코드 자동 변경 (CN→KR) - 리팩토링 버전"""
@@ -937,9 +932,8 @@ def run_auto_country_change() -> bool:
         input(f"\n{Colors.OKCYAN}Enter 키를 눌러 메뉴로 돌아가기...{Colors.ENDC}")
 
 
-# ============================================================================
 # 수동 모드 (STEP별 선택, CN↔KR 방향 선택) - Helper Functions (리팩토링)
-# ============================================================================
+
 
 def _execute_manual_step1() -> Optional['EDLWorkflow']:
     """STEP 1: EDL 진입 실행"""
@@ -1192,9 +1186,8 @@ def _execute_manual_full_run(workflow: Optional['EDLWorkflow'], direction: str) 
         return False
 
 
-# ============================================================================
 # 수동 모드 메뉴 함수들
-# ============================================================================
+
 
 def show_step_selection_menu() -> int:
     """STEP 선택 메뉴 표시"""

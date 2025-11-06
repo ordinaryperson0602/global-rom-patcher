@@ -3,7 +3,7 @@
 from typing import Optional, Tuple
 
 # 로컬 모듈
-from config.constants import HEX_PRC, HEX_IPRC, HEX_ROW, HEX_IROW
+from src.config import HEX_PRC, HEX_IPRC, HEX_ROW, HEX_IROW
 
 
 def check_region_patterns(data: bytes) -> Tuple[bool, bool, bool, bool]:

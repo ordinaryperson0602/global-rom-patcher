@@ -5,11 +5,11 @@ import traceback
 from pathlib import Path
 from typing import Tuple, Optional
 
-from config.colors import Colors
-from config.constants import UIConstants
-from config.messages import TitleMessages
-from config.paths import RSA_BASE_DIR, RSA_DOWNLOAD_DIR, RSA_ROMFILES_DIR
-from core.logger import log_error
+from src.config import Colors
+from src.config import UIConstants
+from src.config import TitleMessages
+from src.config import RSA_BASE_DIR, RSA_DOWNLOAD_DIR, RSA_ROMFILES_DIR
+from src.logger import log_error
 from utils.ui import show_popup
 from utils.file_operations import remove_readonly_and_delete
 

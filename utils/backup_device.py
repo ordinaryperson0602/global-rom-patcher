@@ -7,11 +7,11 @@ from pathlib import Path
 from datetime import datetime
 from typing import Optional, Dict, Tuple
 
-from config.colors import Colors
-from config.paths import CURRENT_DIR, DEVICE_STATE_BACKUP_DIR
-from config.constants import UIConstants, PartitionConstants
-from config.messages import TitleMessages, ErrorMessages
-from core.exceptions import (
+from src.config import Colors
+from src.config import CURRENT_DIR, DEVICE_STATE_BACKUP_DIR
+from src.config import UIConstants, PartitionConstants
+from src.config import TitleMessages, ErrorMessages
+from src.exceptions import (
     EDLConnectionError,
     LoaderNotFoundError,
     UserCancelledError,
@@ -178,7 +178,6 @@ def _cleanup_temp_files(output_dir: Path, slot_suffix: str) -> None:
                     print(f"  → {temp_file} 삭제")
                 except Exception as e:
                     print(f"  → [경고] {temp_file} 삭제 실패: {e}")
-
 
 
 def run_backup() -> bool:

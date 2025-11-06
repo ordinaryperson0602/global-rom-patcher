@@ -14,11 +14,11 @@
 import traceback
 from typing import Tuple, Optional, Dict
 
-from config.colors import Colors
-from config.constants import UIConstants
-from config.messages import TitleMessages
-from core.logger import log_error
-from core.progress import (
+from src.config import Colors
+from src.config import UIConstants
+from src.config import TitleMessages
+from src.logger import log_error
+from src.progress import (
     init_standalone_progress, update_standalone_task,
     print_standalone_progress, end_standalone_progress
 )
@@ -57,9 +57,8 @@ __all__ = [
 ]
 
 
-# ============================================================================
 # Helper Functions
-# ============================================================================
+
 
 def _update_task_status(task_idx: int, status: str) -> None:
     """진행률 업데이트 헬퍼 함수"""
@@ -67,9 +66,8 @@ def _update_task_status(task_idx: int, status: str) -> None:
     print_standalone_progress()
 
 
-# ============================================================================
 # Helper Functions (리팩토링)
-# ============================================================================
+
 
 def _select_rom_with_retry() -> Optional[str]:
     """롬파일 선택 (재시도 가능)"""
@@ -128,9 +126,8 @@ def _validate_rom_structure_with_error(rom_path: str, rom_type: str) -> bool:
     return is_valid
 
 
-# ============================================================================
 # Main Function
-# ============================================================================
+
 
 def run_step_2_custom(
     target_model: str,
