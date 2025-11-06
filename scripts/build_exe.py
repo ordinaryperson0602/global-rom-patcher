@@ -10,6 +10,11 @@ import shutil
 import subprocess
 from pathlib import Path
 
+# 프로젝트 루트 디렉토리로 이동
+SCRIPT_DIR = Path(__file__).parent  # scripts/
+PROJECT_ROOT = SCRIPT_DIR.parent    # 프로젝트 루트
+os.chdir(PROJECT_ROOT)
+
 # 버전 정보
 VERSION = "v1.0.0"
 EXE_NAME = f"GRP_{VERSION}"  # EXE 파일 이름
@@ -39,13 +44,12 @@ def check_requirements():
     # 필수 파일 확인
     required_files = [
         "main.py",
-        "프로그램_사용자_동의서.txt"
+        "assets/프로그램_사용자_동의서.txt"
     ]
     
     required_dirs = [
         "Tools",
-        "config",
-        "core",
+        "src",
         "steps",
         "utils"
     ]
@@ -69,17 +73,19 @@ def clean_build():
     print("🧹 이전 빌드 결과 정리 중...")
     
     clean_dirs = ["build", "dist"]
-    clean_files = ["*.spec"]
+    clean_files = ["GRP_*.spec"]
     
     for dir in clean_dirs:
         if os.path.exists(dir):
             shutil.rmtree(dir)
             print(f"  ✓ 삭제됨: {dir}/")
     
+    # .spec 파일은 scripts/ 폴더에 있을 수 있으므로 루트와 scripts 모두 확인
     for pattern in clean_files:
         for file in Path(".").glob(pattern):
-            file.unlink()
-            print(f"  ✓ 삭제됨: {file}")
+            if file.name != "GRP_v1.0.0.spec":  # 원본 spec 파일은 보존
+                file.unlink()
+                print(f"  ✓ 삭제됨: {file}")
     
     print()
 
